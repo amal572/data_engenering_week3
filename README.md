@@ -5,7 +5,15 @@ In week 3 of Data Learning, We learned a lot of things and I want to explain abo
 ## OLAP vs OLTP
 In data engineering, there are two major concepts: Online analytical processing (OLAP) and Online Transaction Processing (OLTP), which serve different purposes in an organization. The table below summarises the difference between these two concept relatively well.
 
+<div>
+<img src="https://github.com/amal572/data_engenering_week3/blob/main/image/Capture.PNG">
+</div>
 
+In short, OLTP List day-to-day business transactions but OLAP for multi-dimension view of enterprise data 
+
+<div>
+<img src="https://github.com/amal572/data_engenering_week3/blob/main/image/1_FKW_m0LzTb2lEYmwg5_DNw.webp">
+</div>
 
 
 
