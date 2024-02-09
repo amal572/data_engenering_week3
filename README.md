@@ -15,73 +15,15 @@ In short, OLTP List day-to-day business transactions but OLAP for multi-dimensio
 <img src="https://github.com/amal572/data_engenering_week3/blob/main/image/1_FKW_m0LzTb2lEYmwg5_DNw.webp">
 </div>
 
+## What is a Data Warehouse?
+
+The data warehouse is known to be an OLAP solution that is widely used for organizations where the data from the sources are cleaned and transformed in the staging area, before being loaded here for reporting and data analysis purposes. Taking a step further, the data processed in the data warehouse can be served into Data Marts, which a smaller database systems that are used for different teams within an organisation as shown in the flow chart below.
+
+<li> Data Warehouse: Picture a neatly organized library with well-cataloged books. Examples include Google's BigQuery, Amazon's Redshift, and Azure's SQL Data Warehouse.</li>
+<li> Data Lake: Imagine a vast storage room with books in boxes, requiring some digging to find what you need, akin to object storage. Example services include Google's Cloud Storage, Amazon's S3 (Simple Storage Service), and Azure Data Lake Storage.</li>
+<li>Data Mart: Think of it as a specialized section of a library dedicated to a specific subject.</li>
+<li>Data Lakehouse: A hybrid that combines the structured organization of a Data Warehouse with the expansive storage of a Data Lake.</li>
 
 
 
 
-```bash
-git clone https://github.com/mage-ai/mage-zoomcamp.git mage-zoomcamp
-```
-
-Navigate to the repo:
-
-```bash
-cd mage-data-engineering-zoomcamp
-```
-
-Rename `dev.env` to simply `.env`— this will _ensure_ the file is not committed to Git by accident, since it _will_ contain credentials in the future.
-
-Now, let's build the container
-
-```bash
-docker compose build
-```
-
-Finally, start the Docker container:
-
-```bash
-docker compose up
-```
-
-Now, navigate to http://localhost:6789 in your browser! Voila! You're ready to get started with the course. 
-
-### What just happened?
-
-We just initialized a new mage repository. It will be present in your project under the name `magic-zoomcamp`. If you changed the varable `PROJECT_NAME` in the `.env` file, it will be named whatever you set it to.
-
-This repository should have the following structure:
-
-```
-.
-├── mage_data
-│   └── magic-zoomcamp
-├── magic-zoomcamp
-│   ├── __pycache__
-│   ├── charts
-│   ├── custom
-│   ├── data_exporters
-│   ├── data_loaders
-│   ├── dbt
-│   ├── extensions
-│   ├── interactions
-│   ├── pipelines
-│   ├── scratchpads
-│   ├── transformers
-│   ├── utils
-│   ├── __init__.py
-│   ├── io_config.yaml
-│   ├── metadata.yaml
-│   └── requirements.txt
-├── Dockerfile
-├── README.md
-├── dev.env
-├── docker-compose.yml
-└── requirements.txt
-```
-
-## Assistance
-
-1. [Mage Docs](https://docs.mage.ai/introduction/overview): a good place to understand Mage functionality or concepts.
-2. [Mage Slack](https://www.mage.ai/chat): a good place to ask questions or get help from the Mage team.
-3. [DTC Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_2_workflow_orchestration): a good place to get help from the community on course-specific inquireies.
-4. [Mage GitHub](https://github.com/mage-ai/mage-ai): a good place to open issues or feature requests.
