@@ -24,6 +24,11 @@ The data warehouse is known to be an OLAP solution that is widely used for organ
 <li>Data Mart: Think of it as a specialized section of a library dedicated to a specific subject.</li>
 <li>Data Lakehouse: A hybrid that combines the structured organization of a Data Warehouse with the expansive storage of a Data Lake.</li>
 
+<div>
+<img src="https://github.com/amal572/data_engenering_week3/blob/main/image/dataWarehouse.PNG">
+</div>
+
+
 
 
 
