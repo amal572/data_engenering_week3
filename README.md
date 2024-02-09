@@ -1,19 +1,15 @@
 ## Data Engineering Zoomcamp - Week 3
 
-Welcome to DE Zoomcamp with Mage! 
+In week 3 of Data Learning, We learned a lot of things and I want to explain about that 
 
-Mage is an open-source, hybrid framework for transforming and integrating data. ✨
+## OLAP vs OLTP
+In data engineering, there are two major concepts: Online analytical processing (OLAP) and Online Transaction Processing (OLTP), which serve different purposes in an organization. The table below summarises the difference between these two concept relatively well.
 
-In this module, you'll learn how to use the Mage platform to author and share _magical_ data pipelines. This will all be covered in the course, but if you'd like to learn a bit more about Mage, check out our docs [here](https://docs.mage.ai/introduction/overview). 
 
-[Get Started](https://github.com/mage-ai/mage-zoomcamp?tab=readme-ov-file#lets-get-started)
-[Assistance](https://github.com/mage-ai/mage-zoomcamp?tab=readme-ov-file#assistance)
 
-## Let's get started
 
-This repo contains a Docker Compose template for getting started with a new Mage project. It requires Docker to be installed locally. If Docker is not installed, please follow the instructions [here](https://docs.docker.com/get-docker/). 
 
-You can start by cloning the repo:
+
 
 ```bash
 git clone https://github.com/mage-ai/mage-zoomcamp.git mage-zoomcamp
