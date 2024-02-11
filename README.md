@@ -100,7 +100,17 @@ Clustering is a technique used to enhance processing efficiency by querying spec
 
 For example, consider the dataset partitioned initially by the date column and then clustered by tags, as illustrated in the figure below. This approach significantly enhances query performance for both filtering and aggregation tasks. However, it's important to note that the benefits of partitioning and clustering may not be pronounced for tables smaller than 1GB in size.
 
-Clustering columns must be top-level and non-repetitive. Supported data types for clustering include DATE, BOOL, GEOGRAPHY, INT64, NUMERIC, BIGNUMERIC, STRING, TIMESTAMP, and DATETIME.
+Clustering columns must be top-level, non-repeated columns
+<li>DATE</li>
+<li>BOOL</li>
+<li>GEOGRAPHY</li>
+<li>INT64</li>
+<li>NUMERIC</li>
+<li>BIGNUMERIC</li>
+<li>STRING</li>
+<li>TIMESTAMP</li>
+<li>DATETIME</li>
+
 
 <div>
 <img src="https://github.com/amal572/data_engenering_week3/blob/main/image/cluster.PNG">
