@@ -106,6 +106,30 @@ Clustering columns must be top-level and non-repetitive. Supported data types fo
 <img src="https://github.com/amal572/data_engenering_week3/blob/main/image/cluster.PNG">
 </div>
 
+An example used in the module demonstrates how partitioning and clustering can be performed together as follows:
+
+```bash
+CREATE OR REPLACE TABLE de-zoomcamp-412301.ny_taxi.yellow_tripdata_partitoned_clustered
+PARTITION BY DATE(pickup_date)
+CLUSTER BY VendorID AS
+SELECT * FROM de-zoomcamp-412301.ny_taxi.external_yellow_tripdata_corrected;
+
+```
+The total bytes of a query with permission and clustering, compared to one without, have been reduced from 1.1GB to 864.5MB of data in the table.
+```bash
+-- Query scans 1.1 GB
+SELECT count(*) as trips
+FROM de-zoomcamp-412301.ny_taxi.yellow_tripdata_partitoned
+WHERE DATE(pickup_date) BETWEEN '2019-06-01' AND '2020-12-31'
+  AND VendorID=1;
+
+
+-- Query scans 864.5 MB
+SELECT count(*) as trips
+FROM de-zoomcamp-412301.ny_taxi.yellow_tripdata_partitoned_clustered
+WHERE DATE(pickup_date) BETWEEN '2019-06-01' AND '2020-12-31'
+  AND VendorID=1;
+```
 
 
 
