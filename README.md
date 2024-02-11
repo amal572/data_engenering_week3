@@ -275,3 +275,48 @@ FROM
 WHERE
 tip_amount IS NOT NULL;
 ```
+
+## BigQuery ML deployment
+ML models created within BQ can be exported and deployed to Docker containers running TensorFlow Serving.
+1. Authenticate to your GCP project
+```bash
+gcloud auth login
+```
+2. Export the model to a Cloud Storage bucket
+```bash
+bq --project_id taxi-rides-ny extract -m nytaxi.tip_model gs://taxi_ml_model/tip_model
+```
+3. Download the exported model files to a temporary directory
+```bash
+mkdir /tmp/model
+
+gsutil cp -r gs://taxi_ml_model/tip_model /tmp/model
+```
+4. Create a version subdirectory
+```bash
+mkdir -p serving_dir/tip_model/1
+
+cp -r /tmp/model/tip_model/* serving_dir/tip_model/1
+
+# Optionally you may erase the temporary directoy
+rm -r /tmp/model
+```
+5. Pull the TensorFlow Serving Docker image
+```bash
+docker pull tensorflow/serving
+```
+6. Run the Docker image. Mount the version subdirectory as a volume and provide a value for the MODEL_NAME environment variable
+```bash
+# Make sure you don't mess up the spaces!
+docker run \
+  -p 8501:8501 \
+  --mount type=bind,source=`pwd`/serving_dir/tip_model,target=/models/tip_model \
+  -e MODEL_NAME=tip_model \
+  -t tensorflow/serving &
+```
+7. With the image running, run a prediction with curl, providing values for the features used for the predictions
+```bash
+curl \
+  -d '{"instances": [{"passenger_count":1, "trip_distance":12.2, "PULocationID":"193", "DOLocationID":"264", "payment_type":"2","fare_amount":20.4,"tolls_amount":0.0}]}' \
+  -X POST http://localhost:8501/v1/models/tip_model:predict
+```
