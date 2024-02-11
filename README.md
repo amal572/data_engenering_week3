@@ -140,6 +140,11 @@ FROM de-zoomcamp-412301.ny_taxi.yellow_tripdata_partitoned_clustered
 WHERE DATE(pickup_date) BETWEEN '2019-06-01' AND '2020-12-31'
   AND VendorID=1;
 ```
+## Partitioning vs Clustering
+As mentioned before, you may combine both partitioning and clustering in a table, but there are important differences between both techniques that you need to be aware of to decide what to use for your specific scenario:
+<div>
+<img src="https://github.com/amal572/data_engenering_week3/blob/main/image/clus_per.PNG">
+</div>
 
 
 
