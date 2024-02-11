@@ -320,3 +320,107 @@ curl \
   -d '{"instances": [{"passenger_count":1, "trip_distance":12.2, "PULocationID":"193", "DOLocationID":"264", "payment_type":"2","fare_amount":20.4,"tolls_amount":0.0}]}' \
   -X POST http://localhost:8501/v1/models/tip_model:predict
 ```
+
+## Uploading data to Google Cloud Storage using data orchestrator Mage
+In the previous Week 2 Module, we used Mage (a data orchestration framework) to extract, transform, and load our data into PostgreSQL as well as Google BigQuery. This week, we will further capitalize on the knowledge we've built to export all of the necessary data for this module into a Google Cloud Bucket. 
+1. Download the data from source
+
+```bash
+from mage_ai.settings.repo import get_repo_path
+from mage_ai.io.config import ConfigFileLoader
+from mage_ai.io.postgres import Postgres
+from os import path
+import pandas as pd
+import requests
+import pyarrow.parquet as pq
+import pyarrow as pa
+from io import BytesIO
+if 'data_loader' not in globals():
+    from mage_ai.data_preparation.decorators import data_loader
+if 'test' not in globals():
+    from mage_ai.data_preparation.decorators import test
+
+
+@data_loader
+def load_data_from_postgres(*args, **kwargs):
+    """
+    Template for loading data from a PostgreSQL database.
+    Specify your configuration settings in 'io_config.yaml'.
+
+    Docs: https://docs.mage.ai/design/data-loading#postgresql
+    """
+
+    #https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2022-01.parquet
+
+
+    url_green_taxi = 'https://d37ci6vzurychx.cloudfront.net/trip-data/'
+
+    #green_tripdata_2022-01.parquet'
+
+
+    # Initialize an empty pandas DataFrame
+    combined_df = pd.DataFrame()
+
+    # Loop over each month
+    for month in range(1, 13):
+        # Construct the full URL for each month
+        month_url = f"{url_green_taxi}green_tripdata_2022-{month:02d}.parquet"
+
+        try:
+            # Download the Parquet file
+            response = requests.get(month_url)
+            parquet_bytes = BytesIO(response.content)
+
+            # Read the downloaded Parquet file
+            table_to_append = pq.read_table(parquet_bytes)
+
+            # Convert the PyArrow table to a pandas DataFrame and append it to the combined DataFrame
+            combined_df = combined_df.append(table_to_append.to_pandas(), ignore_index=True)
+            
+        except requests.HTTPError as e:
+            print(f"HTTP Error: {e}")    
+
+    return combined_df
+
+@test
+def test_output(output, *args) -> None:
+    """
+    Template code for testing the output of the block.
+    """
+    assert output is not None, 'The output is undefined'
+```
+2. Export data from Mage to Google Cloud Storage
+
+```bash
+from mage_ai.settings.repo import get_repo_path
+from mage_ai.io.config import ConfigFileLoader
+from mage_ai.io.postgres import Postgres
+from pandas import DataFrame
+from os import path
+
+if 'data_exporter' not in globals():
+    from mage_ai.data_preparation.decorators import data_exporter
+
+
+@data_exporter
+def export_data_to_postgres(df: DataFrame, **kwargs) -> None:
+    """
+    Template for exporting data to a PostgreSQL database.
+    Specify your configuration settings in 'io_config.yaml'.
+
+    Docs: https://docs.mage.ai/design/data-loading#postgresql
+    """
+    schema_name = 'ny_taxi'  # Specify the name of the schema to export data to
+    table_name = 'green_taxi_data'  # Specify the name of the table to export data to
+    config_path = path.join(get_repo_path(), 'io_config.yaml')
+    config_profile = 'dev'
+
+    with Postgres.with_config(ConfigFileLoader(config_path, config_profile)) as loader:
+        loader.export(
+            df,
+            schema_name,
+            table_name,
+            index=False,  # Specifies whether to include index in exported table
+            if_exists='replace',  # Specify resolution policy if table name already exists
+        )
+```
