@@ -94,6 +94,19 @@ The query above gives you a quick view of how the partitions look like your tabl
 <img src="https://github.com/amal572/data_engenering_week3/blob/main/image/perm.PNG">
 </div>
 
+## Clustering
+
+Clustering is a technique used to enhance processing efficiency by querying specific subsets of data. It involves selecting columns that group related data together, with up to four columns available for clustering. The sequence of these columns is crucial as it determines the sorting order of the data.
+
+For example, consider the dataset partitioned initially by the date column and then clustered by tags, as illustrated in the figure below. This approach significantly enhances query performance for both filtering and aggregation tasks. However, it's important to note that the benefits of partitioning and clustering may not be pronounced for tables smaller than 1GB in size.
+
+Clustering columns must be top-level and non-repetitive. Supported data types for clustering include DATE, BOOL, GEOGRAPHY, INT64, NUMERIC, BIGNUMERIC, STRING, TIMESTAMP, and DATETIME.
+
+<div>
+<img src="https://github.com/amal572/data_engenering_week3/blob/main/image/cluster.PNG">
+</div>
+
+
 
 
 
