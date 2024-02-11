@@ -65,7 +65,7 @@ SELECT * FROM de-zoomcamp-412301.ny_taxi.external_yellow_tripdata_corrected;
 ```
 This partition have then cut down the bytes of data being scanned when we are doing the query, comparing between non-partitioned and partitioned table
 
-``bash
+```bash
 -- Impact of partition
 -- Scanning 1.6GB of data
 SELECT DISTINCT(VendorID)
@@ -76,11 +76,11 @@ WHERE DATE(pickup_date) BETWEEN '2019-06-01' AND '2019-06-30';
 SELECT DISTINCT(VendorID)
 FROM de-zoomcamp-412301.ny_taxi.yellow_tripdata_partitoned
 WHERE DATE(pickup_date) BETWEEN '2019-06-01' AND '2019-06-30';
-
 ```
+
 You may also check the rows of each partition with the query as follows
 
-``bash
+```bash
 -- Let's look into the parties
 SELECT table_name, partition_id, total_rows
 FROM `ny_taxi.INFORMATION_SCHEMA.PARTITIONS`
